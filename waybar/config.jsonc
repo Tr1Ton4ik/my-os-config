@@ -15,8 +15,8 @@
         "hyprland/window"
     ],
     "modules-right": [
+	"tray",
         "pulseaudio",
-        "network",
         "cpu",
         "memory",
         "hyprland/language",
@@ -26,7 +26,7 @@
     // Modules configuration
     "custom/launcher": {
         "format": "  ",
-        "on-click": "/home/tr1ton/.config/rofi/launchers/type-2/launcher.sh || pkill rofi",
+        "on-click": "rofi -show drun",
         "tooltip": false
     },
     "hyprland/language": {
@@ -109,7 +109,13 @@
     "cpu": {
         "format": "{usage}% ",
         "tooltip": false,
-        "on-click": "cpupower-gui"
+		"menu": "on-click",
+		"menu-file": "$HOME/.config/waybar/cpu_menu.xml", // Menu file in resources folder
+		"menu-actions": {
+			"cpupower-gui": "cpupower-gui",
+			"htop": "kitty htop",
+			"task manager": "xfce4-taskmanager" // replace to your manager binary, if you have other
+		}
     },
     "memory": {
         "format": "{}% "
@@ -179,7 +185,15 @@
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
-        "on-click": "nm-connection-editor "
+        	"tooltip": false,
+		"menu": "on-click",
+		"menu-file": "$HOME/.config/waybar/network_menu.xml", // Menu file in resources folder
+		"menu-actions": {
+			"shutdown": "shutdown",
+			"reboot": "reboot",
+			"suspend": "systemctl suspend",
+			"log out": "hyprctl dispatch exit"
+		}
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
@@ -217,8 +231,23 @@
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
     },
     "custom/power": {
-        "format": " ⏻  ",
-        "tooltip": false,
-        "on-click": "~/.config/rofi/powermenu/type-3/powermenu.sh"
+        "format" : " ⏻ ",
+		"tooltip": false,
+		"menu": "on-click",
+		"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+		"menu-actions": {
+			"shutdown": "shutdown",
+			"reboot": "reboot",
+			"suspend": "systemctl suspend",
+			"log out": "hyprctl dispatch exit"
+		}
+    },
+"tray": {
+    "icon-size": 21,
+    "spacing": 10,
+    "icons": {
+        "blueman": "bluetooth",
+        "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
     }
+}
 }

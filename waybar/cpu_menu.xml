@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkMenu" id="menu">
+    <child>
+		<object class="GtkMenuItem" id="cpupower-gui">
+			<property name="label">Cpupower-gui</property>
+        </object>
+	</child>
+	<child>
+        <object class="GtkMenuItem" id="htop">
+			<property name="label">Htop</property>
+        </object>
+	</child>
+    <child>
+        <object class="GtkMenuItem" id="task manager">
+			<property name="label">Task manager</property>
+        </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="delimiter1"/>
+    </child>
+  </object>
+</interface>
