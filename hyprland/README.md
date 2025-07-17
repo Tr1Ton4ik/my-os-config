@@ -9,9 +9,7 @@
 >
 >[waybar](https://github.com/Alexays/Waybar) - панель управления([тут её конфиг](https://github.com/Tr1Ton4ik/my-os-config/tree/main/waybar))
 
-Установка на arch: 
-
-```
+Установка на arch: ```
 sudo pacman -S hyprland kitty pamixer hyprshot waybar
 ```
 
