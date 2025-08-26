@@ -15,7 +15,7 @@ sudo pacman -S msr-tools cpupower
 ### Подключение throttlestop.service для автоматического разгона:
 1) Создай файл: 
 ```
-sudo nano /usr/etc/systemd/throttlestop.service
+sudo nano /etc/systemd/system/throttlestop.service
 ``` 
 
 2) Cкопируй содержимое из **throttlestop.service**, который находится в этом репозитории
