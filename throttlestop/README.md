@@ -13,25 +13,42 @@ sudo pacman -S msr-tools cpupower
 ### Применение throttlestop.sh: ```sudo sh throttlestop.sh```
 
 ### Подключение throttlestop.service для автоматического разгона:
-1) Создай файл: 
+1) Создайте скрипт:
 ```
-sudo nano /etc/systemd/system/throttlestop.service
-``` 
+sudo nano /usr/local/bin/cpu-setup.sh
+```
+2) Добавьте содержимое:
+```#!/bin/bash
+modprobe msr
+wrmsr 0x1FC 2359388
+cpupower frequency-set --min 3100MHz
+cpupower frequency-set --max 3100MHz
+cpupower frequency-set --governor performance
+```
+3) Дайте права на выполнение:
+```
+sudo chmod +x /usr/local/bin/cpu-setup.sh
+```
+4) Создайте systemd сервис:
+```
+sudo nano /etc/systemd/system/cpu-setup.service
+```
+5) Добавьте содержимое:
+```
+[Unit]
+Description=CPU Frequency Setup
+After=multi-user.target
 
-2) Cкопируй содержимое из **throttlestop.service**, который находится в этом репозитории
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/cpu-setup.sh
+RemainAfterExit=yes
 
-3) Создай throttlestop как команду: 
+[Install]
+WantedBy=multi-user.target
 ```
-sudo nano /usr/local/bin/throttlestop
-``` 
-и скопируй в него содержимое **throttlestop.sh**
-
-4) Поменяй права команды throttlestop на выполнение: 
+6) Включите сервис:
 ```
-sudo chmod +x /usr/local/bin/throttlestop
-```
-
-5) Включить и запустить сервис: 
-```
-sudo systemctl start/enable throttlestop.service
+sudo systemctl enable cpu-setup.service
+sudo systemctl start cpu-setup.service
 ```
